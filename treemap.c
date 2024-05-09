@@ -85,7 +85,7 @@ TreeNode * minimum(TreeNode * x){
     return x;
 }
 
-
+/*
 void removeNode(TreeMap * tree, TreeNode* node) {
     if (tree == NULL || node == NULL) return; // Verificar que el árbol y el nodo sean válidos
     if (node->left == NULL && node->right == NULL){ // Caso 1: El nodo no tiene hijos
@@ -119,7 +119,9 @@ void removeNode(TreeMap * tree, TreeNode* node) {
         return;
     }
 }
-    
+*/
+void removeNode(TreeMap * tree, TreeNode* node) {return NULL;}
+
 
 void eraseTreeMap(TreeMap * tree, void* key){
     if (tree == NULL || tree->root == NULL) return;
