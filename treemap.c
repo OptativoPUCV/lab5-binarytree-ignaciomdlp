@@ -101,17 +101,17 @@ void removeNode(TreeMap * tree, TreeNode* node) {
         TreeNode * aux = minimum(node->right);// Se busca el nodo más pequeño en el subárbol derecho
         node->pair->key = aux->pair->key;// Se reemplaza la clave del nodo con la clave del nodo más pequeño
         node->pair->value = aux->pair->value; // Se reemplaza el valor del nodo con el valor del nodo más pequeño
-        free(node);
         removeNode(tree, aux);
+        free(node);
         return;
     }
     else{
-        TreeNode * child;
-        if (node->left != NULL) child = node->left;
-        else child = node->right;
-        child->parent = node->parent;
-        if (node->parent == NULL) tree->root = child;
-        else{
+        TreeNode * child; // Se asigna el hijo del nodo a eliminar
+        if (node->left != NULL) child = node->left; // Si el nodo tiene un hijo izquierdo, se asigna el hijo izquierdo
+        else child = node->right; // Si el nodo tiene un hijo derecho, se asigna el hijo derecho
+        child->parent = node->parent; // Se establece el padre del hijo en el padre del nodo a eliminar
+        if (node->parent == NULL) tree->root = child; // Si el nodo a eliminar es la raíz, se establece el hijo como la raíz
+        else{ // Si el nodo a eliminar no es la raíz
             if (node == node->parent->left) node->parent->left = child;
             else node->parent->right = child;
         }
@@ -131,6 +131,16 @@ void eraseTreeMap(TreeMap * tree, void* key){
 }
 
 Pair * searchTreeMap(TreeMap * tree, void* key){
+    TreeNode* aux = tree->root;
+
+    while (aux != NULL){
+        if (is_equal(tree, key, aux->pair->key)){
+            tree->current = aux;
+            return aux->pair;
+        } 
+        if (tree->lower_than(key, aux->pair->key))aux = aux->left;
+        else aux = aux->right;
+    }
     return NULL;
 }
 
