@@ -87,21 +87,24 @@ TreeNode * minimum(TreeNode * x){
 
 
 void removeNode(TreeMap * tree, TreeNode* node) {
-    if (tree == NULL || node == NULL) return;
-    if (node->left == NULL && node->right == NULL){
-        if (node->parent == NULL) tree->root = NULL;
-        else{
-            if(node->parent->left == node) node->parent->left = NULL;
+    if (tree == NULL || node == NULL) return; // Verificar que el árbol y el nodo sean válidos
+    if (node->left == NULL && node->right == NULL){ // Caso 1: El nodo no tiene hijos
+        if (node->parent == NULL) tree->root = NULL; // Si el nodo es la raíz, se establece la raíz en NULL
+        else{ // Si el nodo no es la raíz
+            if(node->parent->left == node) node->parent->left = NULL; 
             else node->parent->right = NULL;
         }
         free(node);
         return;
     }
-    if (node->left != NULL && node->right != NULL){
-        TreeNode * aux = minimum(node->right);
-        node->pair->key = aux->pair->key;
-        node->pair->value = aux->pair->value;
+    if (node->left != NULL && node->right != NULL){ // Caso 2: El nodo tiene dos hijos
+        TreeNode * aux = minimum(node->right);// Se busca el nodo más pequeño en el subárbol derecho
+        node->pair->key = aux->pair->key;// Se reemplaza la clave del nodo con la clave del nodo más pequeño
+        node->pair->value = aux->pair->value; // Se reemplaza el valor del nodo con el valor del nodo más pequeño
+        
         removeNode(tree, aux);
+        free(node);
+        return;
     }
     else{
         TreeNode * child;
@@ -128,9 +131,6 @@ void eraseTreeMap(TreeMap * tree, void* key){
 
 }
 
-
-
-
 Pair * searchTreeMap(TreeMap * tree, void* key){
     return NULL;
 }
@@ -150,6 +150,20 @@ Pair * firstTreeMap(TreeMap * tree){
 }
 
 
-Pair * nextTreeMap(TreeMap * tree) {
+Pair * nextTreeMap(TreeMap * tree){
+    TreeNode* aux = tree->current;
+    if (aux == NULL) return NULL;
+    if (aux->right != NULL){
+        aux = minimum(aux->right);
+        tree->current = aux;
+        return aux->pair;
+    }
+    else{
+        while (aux->parent != NULL && aux == aux->parent->right){
+            aux = aux->parent;
+        }
+        tree->current = aux->parent;
+        return aux->parent->pair;
+    }
     return NULL;
 }
