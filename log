@@ -2,3 +2,17 @@ Thu 09 May 2024 09:13:46 PM UTC:
  tests:  1|8
 total_score: 0/70
 8430c11
+Thu 09 May 2024 09:16:24 PM UTC: 
+ treemap.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+In file included from test.c:4:
+treemap.c: In function ‘createTreeMap’:
+treemap.c:40:26: error: invalid initializer
+   40 |     TreeMap newTreeMap = (TreeMap *)malloc(sizeof(TreeMap));
+      |                          ^
+treemap.c:40:13: error: unused variable ‘newTreeMap’ [-Werror=unused-variable]
+   40 |     TreeMap newTreeMap = (TreeMap *)malloc(sizeof(TreeMap));
+      |             ^~~~~~~~~~
+cc1: all warnings being treated as errors
+Compilation failed
+1f4b3ae
