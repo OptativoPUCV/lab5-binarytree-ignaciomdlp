@@ -102,8 +102,6 @@ void removeNode(TreeMap * tree, TreeNode* node) {
         node->pair->key = aux->pair->key;// Se reemplaza la clave del nodo con la clave del nodo más pequeño
         node->pair->value = aux->pair->value; // Se reemplaza el valor del nodo con el valor del nodo más pequeño
         removeNode(tree, aux);
-        free(node);
-        return;
     }
     else{
         TreeNode * child; // Se asigna el hijo del nodo a eliminar
