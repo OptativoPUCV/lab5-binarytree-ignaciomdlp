@@ -87,29 +87,29 @@ TreeNode * minimum(TreeNode * x){
 
 
 void removeNode(TreeMap * tree, TreeNode* node) {
-    if (tree == NULL || node == NULL) return; // Verificar que el árbol y el nodo sean válidos
-    if (node->left == NULL && node->right == NULL){ // Caso 1: El nodo no tiene hijos
-        if (node->parent == NULL) tree->root = NULL; // Si el nodo es la raíz, se establece la raíz en NULL
-        else{ // Si el nodo no es la raíz
+    if (tree == NULL || node == NULL) return; 
+    if (node->left == NULL && node->right == NULL){ 
+        if (node->parent == NULL) tree->root = NULL; 
+        else{
             if(node->parent->left == node) node->parent->left = NULL; 
             else node->parent->right = NULL;
         }
         free(node);
         return;
     }
-    if (node->left != NULL && node->right != NULL){ // Caso 2: El nodo tiene dos hijos
-        TreeNode * aux = minimum(node->right);// Se busca el nodo más pequeño en el subárbol derecho
-        node->pair->key = aux->pair->key;// Se reemplaza la clave del nodo con la clave del nodo más pequeño
-        node->pair->value = aux->pair->value; // Se reemplaza el valor del nodo con el valor del nodo más pequeño
+    if (node->left != NULL && node->right != NULL){ 
+        TreeNode * aux = minimum(node->right);
+        node->pair->key = aux->pair->key;
+        node->pair->value = aux->pair->value; 
         removeNode(tree, aux);
     }
     else{
-        TreeNode * child; // Se asigna el hijo del nodo a eliminar
-        if (node->left != NULL) child = node->left; // Si el nodo tiene un hijo izquierdo, se asigna el hijo izquierdo
-        else child = node->right; // Si el nodo tiene un hijo derecho, se asigna el hijo derecho
-        child->parent = node->parent; // Se establece el padre del hijo en el padre del nodo a eliminar
-        if (node->parent == NULL) tree->root = child; // Si el nodo a eliminar es la raíz, se establece el hijo como la raíz
-        else{ // Si el nodo a eliminar no es la raíz
+        TreeNode * child; 
+        if (node->left != NULL) child = node->left; 
+        else child = node->right; 
+        child->parent = node->parent;
+        if (node->parent == NULL) tree->root = child; 
+        else{
             if (node == node->parent->left) node->parent->left = child;
             else node->parent->right = child;
         }
@@ -117,9 +117,6 @@ void removeNode(TreeMap * tree, TreeNode* node) {
         return;
     }
 }
-
-/*void removeNode(TreeMap * tree, TreeNode* node) {
-}*/
 
 
 void eraseTreeMap(TreeMap * tree, void* key){
