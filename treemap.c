@@ -120,8 +120,8 @@ void removeNode(TreeMap * tree, TreeNode* node) {
     }
 }
 
-void removeNode(TreeMap * tree, TreeNode* node) {
-}
+/*void removeNode(TreeMap * tree, TreeNode* node) {
+}*/
 
 
 void eraseTreeMap(TreeMap * tree, void* key){
